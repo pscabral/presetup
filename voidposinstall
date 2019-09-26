@@ -1,0 +1,95 @@
+Rodando em chroot
+-- -- -- -- -- -- -- -- -- -- -- 
+
+# configuracoes
+#grub (ajuste)
+grb="sda"
+# nome do usuario (ajuste)
+nnu="jh-void"
+#nome da maquina (ajuste)
+hst="jh-pc"
+# senha dos usuarios (ajuste)
+pwu="1Qwsahjffs12wb"
+
+# permissoes das pastas
+chown root:root / ; chmod 755 /
+
+# hostname
+echo $hst > /etc/hostname
+
+# dracut.conf
+echo 'hostonly="yes"' > /etc/dracut.conf.d/hostonly.conf
+
+# repo non-free e atualiza
+xbps-install -Sy ca-certificates void-repo-nonfree ; xbps-install -Suy
+
+# pacotes basicos
+xbps-install -Sy linux-headers xorg-minimal udiskie ntfs-3g alsa-utils xkill wget git grub dhcpcd dbus cgmanager rsync xdg-user-dirs xdg-utils glibc-locales curl nano dejavu-fonts-ttf polkit NetworkManager network-manager-applet wmctrl xz p7zip unrar ConsoleKit2 make cronie
+
+##LFAM (descomente)
+#xbps-install -Sy linux-firmware-amd
+
+##LFIN (descomente)
+#xbps-install -Sy linux-firmware-intel 
+
+# idioma
+echo -e 'LANG=pt_BR.UTF-8\nLC_COLLATE=C' | tee -a /etc/locale.conf ; echo "pt_BR.UTF-8 UTF-8" >  /etc/default/libc-locales ; xbps-reconfigure -f glibc-locales
+
+# teclado abnt2
+mkdir -p /etc/X11/xorg.conf.d ; echo -e 'Section "InputClass"\n         Identifier "Keyboard Defaults"\n         MatchIsKeyboard "yes"\n         Option "XkbLayout" "br"\nEndSection' | tee /etc/X11/xorg.conf.d/10-keyboard.conf
+
+# fuso horario
+ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+
+# rc.conf
+cp /etc/rc.conf /etc/rc.conf-backup ; echo -e 'TIMEZONE="America/Sao_Paulo" \nKEYMAP="br-abnt2" \nFONT="Lat2-Terminus16"' | tee /etc/rc.conf
+
+# XFCE4
+xbps-install -Sy xfce4-panel xfce4-session xfce4-settings xfconf xfdesktop xfwm4 xfwm4-themes xfce4-terminal exo xfce4-notifyd xfce4-screensaver xdg-user-dirs-gtk upower xfce4-clipman-plugin xfce4-appfinder xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin xfce4-power-manager tumbler ristretto gtk-engine-murrine gdk-pixbuf pulseaudio pavucontrol plank qt5-styleplugins qt5ct
+
+# instala o lightdm
+xbps-install -Sy lightdm lightdm-gtk3-greeter
+
+# instala aplicativos
+xbps-install -Sy nemo nemo-fileroller cinnamon-translations file-roller flameshot mate-calc gnome-disk-utility geany transmission-gtk smplayer mpv x264 ffmpeg mediainfo easytag htop zsh gimp xreader gparted ufw gufw
+
+# driver ATI Radeon (descomente)
+#xbps-install -Sy xf86-video-ati
+
+# driver Nouveau (descomente)
+#xbps-install -Sy xf86-video-nouveau
+
+# Driver Nvidia proprietario (descomente)
+#xbps-install -Sy nvidia
+
+# driver vesa (descomente)
+#xbps-install -Sy xf86-video-vesa
+
+# driver virtualbox (descomente)
+#xbps-install -Sy xf86-video-vmware
+
+# driver intel (descomente)
+#xbps-install -Sy xf86-video-intel
+
+# qt5 settings
+echo -e "export QT_QPA_PLATFORMTHEME=qt5ct\nexport QT_AUTO_SCREEN_SCALE_FACTOR=0" | tee -a /etc/environment
+
+# modificacoes no sudoers
+sed -i '/%wheel ALL=(ALL) ALL/s/^#//' /etc/sudoers ; echo -e '\nDefaults pwfeedback\n'$nnu' '$hst' =NOPASSWD: /usr/bin/reboot,/usr/bin/poweroff,/usr/bin/halt,/usr/bin/udisksctl,/usr/bin/mount,/usr/bin/blkid' | tee -a /etc/sudoers
+
+# swappiness
+mkdir -p /etc/sysctl.d/ ; echo 'vm.swappiness=10' | tee -a /etc/sysctl.d/99-sysctl.conf
+
+# instala o grub
+grub-install /dev/$grb ; grub-mkconfig -o /boot/grub/grub.cfg
+
+# configura o root
+echo -e "$pwu\n$pwu" | passwd ; chsh -s /bin/zsh ; cp /void/zshrc-root /root/.zshrc ; cp -a /etc/skel/.oh-my-zsh /root/ ; clear
+
+# cria grupo autologin, storage, power e o usuario
+groupadd -r wheel ; groupadd -r power ; groupadd -r autologin ; groupadd -r storage ; clear ; useradd -m -g users -G autologin,wheel,storage,power -s /bin/bash $nnu ; clear ; echo -e "$pwu\n$pwu" | passwd $nnu ; chsh -s/bin/zsh $nnu
+
+# ativa servicos
+ln -sf /etc/runit/runsvdir/default /var/service ; ln -sf /etc/sv/{crond,dbus,dhcpcd,consolekit,cgmanager,alsa,polkitd,NetworkManager,ufw,lightdm} /var/service
+
+#FIM
