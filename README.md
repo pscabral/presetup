@@ -1,7 +1,9 @@
 - Muda pra root
 sudo su
+- Ativa o swap
+swapon /dev/sdXn1
 - Monta as unidades
-mount /dev/sdXn /mnt
+mount /dev/sdXn2 /mnt
 - Baixa o git
 wget https://github.com/pscabral/void/archive/master.zip
 - Descompacta
