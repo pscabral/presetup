@@ -1,0 +1,34 @@
+Instalando o Void pelo Live do Arch Bang
+-- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+# Muda pra user root
+sudo su
+
+# instalar o xbps baixando de um link
+cd /tmp / wget LINK xbps-0.53-1-x86_64.pkg.tar.xz
+pacman -U --noconfirm xbps-0.53-1-x86_64.pkg.tar.xz
+
+# ativar o swap
+swapon /dev/sdxn1
+
+# monta unidade destino
+mount /dev/sdxn2 /mnt
+
+# baixar a base-system
+echo "Y" | xbps-install -S -R https://mirrors.dotsrc.org/voidlinux/current/ -r /mnt/ base-system
+
+# copiar resolv.conf
+cd /etc/resolv.conf /mnt/etc
+
+# repositorios
+mkdir -p /mnt/etc/xbps.d ; echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/ \nrepository=https://alpha.de.repo.voidlinux.org/current' | tee /mnt/etc/xbps.d/00-repository-main.conf
+echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/nonfree \nrepository=https://alpha.de.repo.voidlinux.org/current/nonfree' | tee /mnt/etc/xbps.d/00-repository-main.conf/10-repository-nonfree.conf
+
+# gerar o fstab
+genfstab -p /mnt >> /mnt/etc/fstab
+
+# entrar em chroot
+arch-chroot /mnt /bin/bash
+
+# entrar em chroot executando o script
+arch-chroot /mnt sh install
