@@ -1,4 +1,3 @@
-# void
 - muda pra root</br>
 sudo su</br>
 - baixa o git</br>
