@@ -1,12 +1,14 @@
+#!/bin/bash
+
+#
+ 
 Instalando o Void pelo Live do Arch Bang
--- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 # Muda pra user root
 sudo su
 
 # instalar o xbps baixando de um link
-cd /tmp / wget LINK xbps-0.53-1-x86_64.pkg.tar.xz
-pacman -U --noconfirm xbps-0.53-1-x86_64.pkg.tar.xz
+cd /tmp / wget https://github.com/pscabral/void/raw/master/xbps-0.53-1-x86_64.pkg.tar.xz ; pacman -U --noconfirm xbps-0.53-1-x86_64.pkg.tar.xz
 
 # ativar o swap
 swapon /dev/sdxn1
@@ -31,4 +33,4 @@ genfstab -p /mnt >> /mnt/etc/fstab
 arch-chroot /mnt /bin/bash
 
 # entrar em chroot executando o script
-arch-chroot /mnt sh install
+cp ./install /mnt ; arch-chroot /mnt sh install
