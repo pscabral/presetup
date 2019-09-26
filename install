@@ -1,5 +1,6 @@
-Rodando em chroot
--- -- -- -- -- -- -- -- -- -- -- 
+#!/bin/bash
+
+# rodando em chroot
 
 # configuracoes
 #grub (ajuste)
