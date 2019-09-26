@@ -10,12 +10,6 @@ sudo su
 # instalar o xbps baixando de um link
 cd /tmp / wget https://github.com/pscabral/void/raw/master/xbps-0.53-1-x86_64.pkg.tar.xz ; pacman -U --noconfirm xbps-0.53-1-x86_64.pkg.tar.xz
 
-# ativar o swap
-swapon /dev/sdxn1
-
-# monta unidade destino
-mount /dev/sdxn2 /mnt
-
 # baixar a base-system
 echo "Y" | xbps-install -S -R https://mirrors.dotsrc.org/voidlinux/current/ -r /mnt/ base-system
 
