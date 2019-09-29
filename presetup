@@ -26,7 +26,17 @@ cp ./install /mnt ; arch-chroot /mnt
 
 # gerar o resolv
 echo "nameserver 8.8.8.8\nnameserver 8.8.4.4" | tee /etc/resolv.conf
-
 cat /etc/resolv.conf
 
+# atualização dos pacotes.
+xbps-install -Su
+xbps-install -Suv
+xbps-install -S nano
+
 sh install
+
+
+
+
+
+
