@@ -25,7 +25,8 @@ genfstab -p /mnt >> /mnt/etc/fstab
 cp ./install /mnt ; arch-chroot /mnt 
 
 # gerar o resolv
-echo 8.8.8.8 > /etc/resolv.conf
-echo 8.8.4.4 > /etc/resolv.conf
+echo "nameserver 8.8.8.8\nnameserver 8.8.4.4" | tee /etc/resolv.conf
+
+cat /etc/resolv.conf
 
 sh install
