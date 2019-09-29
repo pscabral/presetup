@@ -85,12 +85,12 @@ mkdir -p /etc/sysctl.d/ ; echo 'vm.swappiness=10' | tee -a /etc/sysctl.d/99-sysc
 grub-install /dev/$grb ; grub-mkconfig -o /boot/grub/grub.cfg
 
 # configura o root
-echo -e "$pwu\n$pwu" | passwd ; chsh -s /bin/zsh ; cp /void/zshrc-root /root/.zshrc ; cp -a /etc/skel/.oh-my-zsh /root/ ; clear
+echo -e "$pwu\n$pwu" | passwd; clear
 
 # cria grupo autologin, storage, power e o usuario
 groupadd -r wheel ; groupadd -r power ; groupadd -r autologin ; groupadd -r storage ; clear ; useradd -m -g users -G autologin,wheel,storage,power -s /bin/bash $nnu ; clear ; echo -e "$pwu\n$pwu" | passwd $nnu
 
 # ativa servicos
-ln -sf /etc/runit/runsvdir/default /var/service ; ln -sf /etc/sv/{crond,dbus,dhcpcd,consolekit,cgmanager,alsa,polkitd,NetworkManager,ufw,lightdm} /var/service
+ln -sf /etc/runit/runsvdir/default /var/service ; ln -sf /etc/sv/{crond,dbus,dhcpcd,consolekit,cgmanager,alsa,polkitd,NetworkManager,ufw,lightdm,network} /var/service
 
 #FIM
