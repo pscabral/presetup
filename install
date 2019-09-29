@@ -31,7 +31,7 @@ xbps-install -Sy linux-headers xorg-minimal udiskie ntfs-3g alsa-utils xkill wge
 #xbps-install -Sy linux-firmware-amd
 
 ##LFIN (descomente)
-#xbps-install -Sy linux-firmware-intel 
+xbps-install -Sy linux-firmware-intel 
 
 # idioma
 echo -e 'LANG=pt_BR.UTF-8\nLC_COLLATE=C' | tee -a /etc/locale.conf ; echo "pt_BR.UTF-8 UTF-8" >  /etc/default/libc-locales ; xbps-reconfigure -f glibc-locales
@@ -55,7 +55,7 @@ xbps-install -Sy lightdm lightdm-gtk3-greeter
 xbps-install -Sy nemo nemo-fileroller cinnamon-translations file-roller flameshot mate-calc gnome-disk-utility geany transmission-gtk smplayer mpv x264 ffmpeg mediainfo easytag htop zsh gimp xreader gparted ufw gufw
 
 # driver ATI Radeon (descomente)
-#xbps-install -Sy xf86-video-ati
+xbps-install -Sy xf86-video-ati
 
 # driver Nouveau (descomente)
 #xbps-install -Sy xf86-video-nouveau
