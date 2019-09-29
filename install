@@ -6,11 +6,11 @@
 #grub (ajuste)
 grb="sda"
 # nome do usuario (ajuste)
-nnu="jh-void"
+nnu="pscabral"
 #nome da maquina (ajuste)
-hst="jh-pc"
+hst="voidOS"
 # senha dos usuarios (ajuste)
-pwu="1Qwsahjffs12wb"
+pwu="user"
 
 # permissoes das pastas
 chown root:root / ; chmod 755 /
