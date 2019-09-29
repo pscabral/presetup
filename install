@@ -88,7 +88,7 @@ grub-install /dev/$grb ; grub-mkconfig -o /boot/grub/grub.cfg
 echo -e "$pwu\n$pwu" | passwd ; chsh -s /bin/zsh ; cp /void/zshrc-root /root/.zshrc ; cp -a /etc/skel/.oh-my-zsh /root/ ; clear
 
 # cria grupo autologin, storage, power e o usuario
-groupadd -r wheel ; groupadd -r power ; groupadd -r autologin ; groupadd -r storage ; clear ; useradd -m -g users -G autologin,wheel,storage,power -s /bin/bash $nnu ; clear ; echo -e "$pwu\n$pwu" | passwd $nnu ; chsh -s/bin/zsh $nnu
+groupadd -r wheel ; groupadd -r power ; groupadd -r autologin ; groupadd -r storage ; clear ; useradd -m -g users -G autologin,wheel,storage,power -s /bin/bash $nnu ; clear ; echo -e "$pwu\n$pwu" | passwd $nnu
 
 # ativa servicos
 ln -sf /etc/runit/runsvdir/default /var/service ; ln -sf /etc/sv/{crond,dbus,dhcpcd,consolekit,cgmanager,alsa,polkitd,NetworkManager,ufw,lightdm} /var/service
