@@ -3,7 +3,7 @@
 # Instalando o Void pelo Live do Arch Bang
 
 # instalar o xbps depois de ter executado todos os passos do readme.md
-pacman -U --noconfirm $HOME/void-master/xbps-0.53-1-x86_64.pkg.tar.xz
+pacman -U --noconfirm ./xbps-0.53-1-x86_64.pkg.tar.xz
 
 # baixar a base-system
 echo "Y" | xbps-install -S -R https://mirrors.dotsrc.org/voidlinux/current/ -r /mnt/ base-system
@@ -22,4 +22,10 @@ genfstab -p /mnt >> /mnt/etc/fstab
 #arch-chroot /mnt /bin/bash
 
 # entrar em chroot executando o script
-cp ./install /mnt ; arch-chroot /mnt sh install
+cp ./install /mnt ; arch-chroot /mnt 
+
+# gerar o resolv
+echo 8.8.8.8 > /etc/resolv.conf
+echo 8.8.4.4 > /etc/resolv.conf
+
+sh install
