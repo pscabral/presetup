@@ -95,6 +95,9 @@ xbps-install -Sy void-repo-multilib-nonfree void-repo-multilib void-repo-nonfree
 xbps-install -Su 
 xbps-install -Suv
 
+# XFCE4
+xbps-install -Sy xfce4-panel xfce4-session xfce4-settings xfconf xfdesktop xfwm4 xfwm4-themes xfce4-terminal exo xfce4-notifyd xfce4-screensaver xdg-user-dirs-gtk upower xfce4-clipman-plugin xfce4-appfinder xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin xfce4-power-manager tumbler ristretto gtk-engine-murrine gdk-pixbuf pulseaudio pavucontrol plank qt5-styleplugins qt5ct
+
 # pacotes basicos
 xbps-install -Sy linux-headers xorg-minimal udiskie ntfs-3g alsa-utils xkill wget git grub dhcpcd dbus cgmanager rsync xdg-user-dirs xdg-utils glibc-locales curl nano dejavu-fonts-ttf polkit NetworkManager network-manager-applet wmctrl xz p7zip unrar ConsoleKit2 make cronie NetworkManager network-manager-applet xf86-video-vesa xf86-video-fbdev xf86-input-libinput setxkbmap gvfs gvfs-smb gvfs-cdda leafpad unrar zip p7zip unzip bzip ffmpeg gst-plugins-bad1 gst-plugins-good1
 gst-plugins-ugly1 gst-plugins-base1 vlc pulseaudio pavucontrol-qt lxdm xf86-video-ati xf86-video-intel firefox firefox-i18n-pt-BR chromium NetworkManager network-manager-applet
