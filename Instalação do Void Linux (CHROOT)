@@ -9,10 +9,11 @@ mkswap /dev/sda2
 
 #Montagem
 swapon /dev/sda2
+mkdir /mnt
 mount /dev/sda1 /mnt
 mkdir /mnt/home
 mount /dev/sda3 /mnt/home
-cd /mnt/void
+cd /mnt
 
 #Instalar o xbps-install
 wget https://github.com/pscabral/void/blob/master/xbps-0.53-1-x86_64.pkg.tar.xz
