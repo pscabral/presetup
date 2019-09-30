@@ -1,1 +1,21 @@
-#INSTALAÇÃO DO VOID LINUX (CHROOT)
+#!/bin/bash
+
+#Instalação do Void Linux (CHROOT)
+
+#Criar partições
+mkfs.ext4 /dev/sda1;
+mkfs.ext4 /dev/sda3;
+mkswap /dev/sda2;
+
+#Montar as partições
+swapon /dev/sda2;
+mount /dev/sda1 /mnt;
+mkdir /mnt/home;
+mount /dev/sda3 /mnt/home;
+cd /mnt/void
+
+*Instalar o xbps-install
+wget https://github.com/pscabral/void/archive/master.zip
+pacman -U --noconfirm ./xbps-0.53-1-x86_64.pkg.tar.xz
+
+
