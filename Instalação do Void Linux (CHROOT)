@@ -96,8 +96,17 @@ xbps-install -Suv
 
 # pacotes basicos
 xbps-install -Sy linux-headers xorg-minimal udiskie ntfs-3g alsa-utils xkill wget git grub dhcpcd dbus cgmanager rsync xdg-user-dirs xdg-utils glibc-locales curl nano dejavu-fonts-ttf polkit NetworkManager network-manager-applet wmctrl xz p7zip unrar ConsoleKit2 make cronie NetworkManager network-manager-applet xf86-video-vesa xf86-video-fbdev xf86-input-libinput setxkbmap gvfs gvfs-smb gvfs-cdda leafpad unrar zip p7zip unzip bzip ffmpeg gst-plugins-bad1 gst-plugins-good1
-gst-plugins-ugly1 gst-plugins-base1 vlc pulseaudio pavucontrol-qt lxdm xf86-video-ati xf86-video-intel firefox firefox-i18n-pt-BR chromium
+gst-plugins-ugly1 gst-plugins-base1 vlc pulseaudio pavucontrol-qt lxdm xf86-video-ati xf86-video-intel firefox firefox-i18n-pt-BR chromium NetworkManager network-manager-applet
 
+#Serviços.
+ln -sv /etc/sv/dbus /var/service/
+ln -sv /etc/sv/polkitd /var/service/
+ln -sv /etc/sv/dhcpcd /var/service/
+ln -s /etc/sv/NetworkManager /var/service
+ln -sv /etc/sv/consolekit /var/service/
+ln -sv /etc/sv/cgmanager /var/service/
+ln -sv /etc/sv/lxdm /var/service/
+sv /etc/ /var/service/*
 
 
 
