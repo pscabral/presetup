@@ -2,20 +2,97 @@
 
 #Instalação do Void Linux (CHROOT)
 
-#Criar partições
-mkfs.ext4 /dev/sda1;
-mkfs.ext4 /dev/sda3;
-mkswap /dev/sda2;
+#Particionamento
+mkfs.ext4 /dev/sda1
+mkfs.ext4 /dev/sda3
+mkswap /dev/sda2
 
-#Montar as partições
+#Montagem
 swapon /dev/sda2;
-mount /dev/sda1 /mnt;
-mkdir /mnt/home;
-mount /dev/sda3 /mnt/home;
+mount /dev/sda1 /mnt
+mkdir /mnt/home
+mount /dev/sda3 /mnt/home
 cd /mnt/void
 
-*Instalar o xbps-install
+#Instalar o xbps-install
 wget https://github.com/pscabral/void/archive/master.zip
 pacman -U --noconfirm ./xbps-0.53-1-x86_64.pkg.tar.xz
+
+#Download do tarball
+wget https://a-hel-fi.m.voidlinux.org/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
+#wget http://ftp4.se.freebsd.org/pub/voidlinux/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
+#wget http://dk.archive.ubuntu.com/voidlinux/live/20190526/void-x86_64-musl-ROOTFS-20190526.tar.xz
+#wget http://achieversz.com.mirror.yandex.ru/mirrors/voidlinux/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
+tar xpf void-x86_64-ROOTFS-20190526.tar.xz --xattrs-include='*.*' --numeric-owner
+cp /etc/resolv.conf etc/resolv.conf
+
+# repositorios
+mkdir -p /mnt/etc/xbps.d ; echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/ \nrepository=https://alpha.de.repo.voidlinux.org/current' | tee /mnt/etc/xbps.d/00-repository-main.conf
+echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/nonfree \nrepository=https://alpha.de.repo.voidlinux.org/current/nonfree' | tee /mnt/etc/xbps.d/00-repository-main.conf/10-repository-nonfree.conf
+ 
+#Ajustes e entrada no chroot.
+# mount --types proc /proc /mnt/void/proc
+# mount --rbind /sys /mnt/void/sys
+# mount --rbind /dev /mnt/void/dev
+# mount --make-rslave /mnt/void/sys
+# mount --make-rslave /mnt/void/dev
+
+# gerar o fstab
+genfstab -p /mnt >> /mnt/etc/fstab
+
+# entrar em chroot
+arch-chroot /mnt /bin/bash
+
+#Atualização dos pacotes.
+xbps-install -Su
+xbps-install -Suv
+xbps-install -S nano
+
+#FSTAB.
+nano /etc/fstab
+
+#hostname, linguagem ...
+nano /etc/hostname
+#voidOS
+
+nano /etc/hosts
+#127.0.0.1 localhost.localdomain localhost
+#::1   localhost.localdomain localhost
+
+nano/etc/rc.conf
+#HOSTNAME="voidOS"
+#HARDWARECLOCK="localtime"
+#TIMEZONE="America/Sao_Paulo"
+#KEYMAP="br-abnt2"
+
+nano /etc/locale.conf
+#LANG=pt_BR.UTF-8
+#LC_COLLATE=C
+
+nano /etc/default/libc-locales
+#pt_BR.UTF-8 UTF-8
+xbps-reconfigure -f glibc-locales
+
+#Kernel, base-devel e grub.
+# xbps-install -S linux linux-headers base-devel
+xbps-install -S linux5.2 linux5.2-headers base-devel
+
+xbps-install -S grub
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+#Xorg mínimo.
+xbps-install -S xf86-video-ati xorg-input-drivers xorg-minimal xorg-fonts
+
+#usuários e senhas.
+passwd root
+useradd -m -s /bin/bash -U -G wheel,users,audio,video,cdrom,input,network pscabral
+passwd psccabral
+
+
+
+
+
+
 
 
