@@ -2,6 +2,13 @@
 
 #Instalação do Void Linux (CHROOT)
 
+#Instalar o xbps-install
+wget https://github.com/pscabral/void/blob/master/xbps-0.53-1-x86_64.pkg.tar.xz
+pacman -U --noconfirm ./xbps-0.53-1-x86_64.pkg.tar.xz
+
+#Entrada no root.
+sudo su
+
 #Particionamento
 mkfs.ext4 /dev/sda1
 mkfs.ext4 /dev/sda3
@@ -15,9 +22,7 @@ mkdir /mnt/home
 mount /dev/sda3 /mnt/home
 cd /mnt
 
-#Instalar o xbps-install
-wget https://github.com/pscabral/void/blob/master/xbps-0.53-1-x86_64.pkg.tar.xz
-pacman -U --noconfirm ./xbps-0.53-1-x86_64.pkg.tar.xz
+
 
 #Download do tarball
 wget https://a-hel-fi.m.voidlinux.org/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
