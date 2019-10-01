@@ -101,7 +101,7 @@ grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Xorg mínimo.
-xbps-install -Sy xf86-video-ati xorg-input-drivers xorg-minimal xorg-fonts
+xbps-install -Sy xf86-video-ati xorg-input-drivers xorg-minimal xorg-fonts bash-completion
 
 # Usuários e senhas.
 passwd root
