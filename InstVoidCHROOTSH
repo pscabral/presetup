@@ -70,6 +70,7 @@ xbps-install -Sy nano
 nano /etc/fstab
 
 #hostname, linguagem ...
+echo voidOS > /etc/hostname
 nano /etc/hostname
 #voidOS
 
@@ -78,16 +79,22 @@ nano /etc/hosts
 #::1   localhost.localdomain localhost
 
 nano/etc/rc.conf
+echo HOSTNAME="archOs" / HARDWARECLOCK="UTC" / TIMEZONE="America/Sao_Paulo" / KEYMAP="br-abnt2" / FONT="Lat2-Terminus16"" | sed -E 's| / |\n|g' > /etc/rc.conf
+nano/etc/rc.conf
 #HOSTNAME="voidOS"
 #HARDWARECLOCK="localtime"
 #TIMEZONE="America/Sao_Paulo"
 #KEYMAP="br-abnt2"
 #FONT="Lat2-Terminus16"
 
+
+echo LANG=pt_BR.UTF-8 / LC_COLLATE=C | sed -E 's| / |\n|g' > /etc/locale.conf
 nano /etc/locale.conf
 #LANG=pt_BR.UTF-8
 #LC_COLLATE=C
 
+
+echo > pt_BR.UTF-8 UTF-8 /etc/default/libc-locales
 nano /etc/default/libc-locales
 #pt_BR.UTF-8 UTF-8
 xbps-reconfigure -f glibc-locales
@@ -125,6 +132,7 @@ ln -s /etc/sv/NetworkManager /var/service
 ln -sv /etc/sv/consolekit /var/service/
 ln -sv /etc/sv/cgmanager /var/service/
 ln -sv /etc/sv/lxdm /var/service/
+
 
 
 
