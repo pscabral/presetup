@@ -79,7 +79,7 @@ nano /etc/hosts
 #::1   localhost.localdomain localhost
 
 nano/etc/rc.conf
-echo HOSTNAME="archOs" / HARDWARECLOCK="UTC" / TIMEZONE="America/Sao_Paulo" / KEYMAP="br-abnt2" / FONT="Lat2-Terminus16"" | sed -E 's| / |\n|g' > /etc/rc.conf
+echo HOSTNAME="voidhOs" / HARDWARECLOCK="UTC" / TIMEZONE="America/Sao_Paulo" / KEYMAP="br-abnt2" / FONT="Lat2-Terminus16"" | sed -E 's| / |\n|g' > /etc/rc.conf
 nano/etc/rc.conf
 #HOSTNAME="voidOS"
 #HARDWARECLOCK="localtime"
@@ -123,6 +123,9 @@ xbps-install -Sy xfce4-panel xfce4-session xfce4-settings xfconf xfdesktop xfwm4
 
 # pacotes basicos
 xbps-install -Sy udiskie ntfs-3g alsa-utils xkill wget git dhcpcd dbus cgmanager rsync xdg-user-dirs xdg-utils glibc-locales curl nano dejavu-fonts-ttf polkit NetworkManager network-manager-applet wmctrl xz ConsoleKit2 make cronie setxkbmap gvfs gvfs-smb gvfs-cdda leafpad unrar zip p7zip unzip bzip ffmpeg gst-plugins-bad1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-base1 vlc lxdm firefox firefox-i18n-pt-BR chromium
+
+# Adicionar usuário sudoers
+echo 'pscabral ALL=NOPASSWD: ALL' >> /etc/sudoers
 
 #Serviços.
 ln -sv /etc/sv/dbus /var/service/
