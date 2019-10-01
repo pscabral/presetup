@@ -16,12 +16,11 @@ mkswap /dev/sda2
 
 #Montagem
 swapon /dev/sda2
-mkdir /mnt
 mount /dev/sda1 /mnt
+
 mkdir /mnt/home
 mount /dev/sda3 /mnt/home
 cd /mnt
-
 
 
 #Download do tarball
@@ -70,6 +69,7 @@ nano/etc/rc.conf
 #HARDWARECLOCK="localtime"
 #TIMEZONE="America/Sao_Paulo"
 #KEYMAP="br-abnt2"
+#FONT="Lat2-Terminus16"
 
 nano /etc/locale.conf
 #LANG=pt_BR.UTF-8
