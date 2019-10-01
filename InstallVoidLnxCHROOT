@@ -22,7 +22,6 @@ mkdir /mnt/home
 mount /dev/sda3 /mnt/home
 cd /mnt
 
-
 #Download do tarball
 wget https://a-hel-fi.m.voidlinux.org/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
 #wget http://ftp4.se.freebsd.org/pub/voidlinux/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
@@ -51,7 +50,7 @@ arch-chroot /mnt /bin/bash
 #Atualização dos pacotes.
 xbps-install -Su
 xbps-install -Suv
-xbps-install -S nano glibc-locales
+xbps-install -Sy nano
 
 #FSTAB.
 nano /etc/fstab
@@ -79,26 +78,24 @@ nano /etc/default/libc-locales
 #pt_BR.UTF-8 UTF-8
 xbps-reconfigure -f glibc-locales
 
-#Kernel, base-devel e grub.
+# Kernel, base-devel e grub.
 # xbps-install -S linux linux-headers base-devel
-xbps-install -S linux5.2 linux5.2-headers base-devel
+xbps-install -S linux5.2 linux5.2-headers base-devel grub
 
 xbps-install -S grub
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
-#Xorg mínimo.
-xbps-install -S xf86-video-ati xorg-input-drivers xorg-minimal xorg-fonts
+# Xorg mínimo.
+xbps-install -Sy xf86-video-ati xorg-input-drivers xorg-minimal xorg-fonts
 
-#usuários e senhas.
+# Usuários e senhas.
 passwd root
 useradd -m -s /bin/bash -U -G wheel,users,audio,video,cdrom,input,network pscabral
 passwd pscabral
 
-#Repositórios
-xbps-install -Sy void-repo-multilib-nonfree void-repo-multilib void-repo-nonfree
-xbps-install -Su 
-xbps-install -Suv
+# repo non-free e atualiza
+xbps-install -Sy ca-certificates void-repo-nonfree ; xbps-install -Suy
 
 # XFCE4
 xbps-install -Sy xfce4-panel xfce4-session xfce4-settings xfconf xfdesktop xfwm4 xfwm4-themes xfce4-terminal exo xfce4-notifyd xfce4-screensaver xdg-user-dirs-gtk upower xfce4-clipman-plugin xfce4-appfinder xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin xfce4-power-manager tumbler ristretto gtk-engine-murrine gdk-pixbuf pulseaudio pavucontrol plank qt5-styleplugins qt5ct
