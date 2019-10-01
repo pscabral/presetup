@@ -34,6 +34,20 @@ cp /etc/resolv.conf etc/resolv.conf
 mkdir -p /mnt/etc/xbps.d ; echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/ \nrepository=https://alpha.de.repo.voidlinux.org/current' | tee /mnt/etc/xbps.d/00-repository-main.conf
 echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/nonfree \nrepository=https://alpha.de.repo.voidlinux.org/current/nonfree' | tee /mnt/etc/xbps.d/00-repository-main.conf/10-repository-nonfree.conf
  
+#Arquivo nano /usr/share/xbps.d/00-repository-main.conf
+# > repository=https://mirrors.servercentral.com/voidlinux/current
+#repository=https://alpha.us.repo.voidlinux.org/current
+#repository=http://https//mirror.clarkson.edu/voidlinux/current
+#repository=https://alpha.de.repo.voidlinux.org/current
+#repository=https://void.webconverger.org/current
+
+#Arquivo nano /usr/share/xbps.d/10-repository-nonfree.conf
+# > repository=https://mirrors.servercentral.com/voidlinux/current/nonfree
+#repository=https://alpha.us.repo.voidlinux.org/current/nonfree
+#repository=http://https//mirror.clarkson.edu/voidlinux/current/nonfree
+#repository=https://alpha.de.repo.voidlinux.org/current/nonfree
+#repository=https://void.webconverger.org/current/nonfree
+ 
 #Ajustes e entrada no chroot.
 # mount --types proc /proc /mnt/void/proc
 # mount --rbind /sys /mnt/void/sys
