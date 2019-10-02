@@ -131,19 +131,15 @@ echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 nano /etc/sudoers
 
 #Serviços.
-ln -sv /etc/sv/dbus /var/service/
-ln -sv /etc/sv/polkitd /var/service/
-ln -sv /etc/sv/dhcpcd /var/service/
-ln -s /etc/sv/NetworkManager /var/service
-ln -sv /etc/sv/consolekit /var/service/
-ln -sv /etc/sv/cgmanager /var/service/
-ln -sv /etc/sv/lxdm /var/service/
-
-
-
-
-
-
+ln -sv /etc/sv/dbus /var/service/;
+ln -sv /etc/sv/polkitd /var/service/;
+ln -sv /etc/sv/dhcpcd /var/service/;
+ln -s /etc/sv/NetworkManager /var/service/;
+ln -sv /etc/sv/consolekit /var/service/;
+ln -sv /etc/sv/cgmanager /var/service/;
+ln -sv /etc/sv/lxdm /var/service/;
+sv status /var/service/*
+#rm /var/service/*
 
 
 
