@@ -67,38 +67,27 @@ xbps-install -Su
 xbps-install -Suv
 xbps-install -Sy nano
 
-#FSTAB.
-nano /etc/fstab
+# Verificar o arquivo /ETC/FSTAB.
+cat /etc/fstab
 
 #hostname, linguagem ...
+
+#Configurar o arquivo /etc/hostname#
 echo voidOS > /etc/hostname
-nano /etc/hostname
-#voidOS
 
+#Configurar o arquivo /etc/rc.conf#
+echo HOSTNAME=voidhOS / HARDWARECLOCK=UTC / TIMEZONE=America/Sao_Paulo / KEYMAP=br-abnt2 / FONT=Lat2-Terminus16 | sed -E 's| / |\n|g' > /etc/rc.con
+
+#Configurar o arquivo /etc/hosts#
 echo 127.0.0.1 localhost.localdomain localhost / ::1 localhost.localdomain localhost | sed -E 's| / |\n|g' > /etc/hosts
-nano /etc/hosts
-#127.0.0.1 localhost.localdomain localhost
-#::1   localhost.localdomain localhost
 
-nano/etc/rc.conf
+#Configurar o arquivo /etc/rc.conf#
 echo HOSTNAME="voidhOs" / HARDWARECLOCK="UTC" / TIMEZONE="America/Sao_Paulo" / KEYMAP="br-abnt2" / FONT="Lat2-Terminus16"" | sed -E 's| / |\n|g' > /etc/rc.conf
-nano/etc/rc.conf
-#HOSTNAME="voidOS"
-#HARDWARECLOCK="localtime"
-#TIMEZONE="America/Sao_Paulo"
-#KEYMAP="br-abnt2"
-#FONT="Lat2-Terminus16"
 
-
+#Configurar o arquivo /etc/locale.conf#
 echo LANG=pt_BR.UTF-8 / LC_COLLATE=C | sed -E 's| / |\n|g' > /etc/locale.conf
-nano /etc/locale.conf
-#LANG=pt_BR.UTF-8
-#LC_COLLATE=C
+echo pt_BR.UTF-8 UTF-8 > /etc/default/libc-locales
 
-
-echo > pt_BR.UTF-8 UTF-8 /etc/default/libc-locales
-nano /etc/default/libc-locales
-#pt_BR.UTF-8 UTF-8
 xbps-reconfigure -f glibc-locales
 
 # Kernel, base-devel e grub.
@@ -131,13 +120,13 @@ echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 nano /etc/sudoers
 
 #Serviços.
-ln -sv /etc/sv/dbus /var/service/;
-ln -sv /etc/sv/polkitd /var/service/;
-ln -sv /etc/sv/dhcpcd /var/service/;
-ln -s /etc/sv/NetworkManager /var/service/;
-ln -sv /etc/sv/consolekit /var/service/;
-ln -sv /etc/sv/cgmanager /var/service/;
-ln -sv /etc/sv/lxdm /var/service/;
+ln -sv /etc/sv/dbus /var/service/
+ln -sv /etc/sv/polkit /var/service/
+ln -sv /etc/sv/dhcpcd /var/service/
+ln -s /etc/sv/NetworkManager /var/service/
+ln -sv /etc/sv/consolekit /var/service/
+ln -sv /etc/sv/cgmanager /var/service/
+ln -sv /etc/sv/lxdm /var/service/
 sv status /var/service/*
 #rm /var/service/*
 
