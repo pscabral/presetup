@@ -12,7 +12,7 @@ sudo su
 #Particionamento
 mkfs.ext4 /dev/sda1
 mkfs.ext4 /dev/sda3
-mkswap /dev/sda2 Ju
+mksawp /dev/sda2
 
 #Montagem
 swapon /dev/sda2
@@ -61,7 +61,8 @@ genfstab -p /mnt >> /mnt/etc/fstab
 # entrar em chroot
 arch-chroot /mnt /bin/bash
 
-#Atualização dos pacotes.
+#Atualização dosecho nameserver 8.8.8.8 /nameserver 8.8.4.4 | sed -E 's| / |\n|g' > /etc/resolv.conf pacotes.
+
 xbps-install -Su
 xbps-install -Suv
 xbps-install -Sy nano
@@ -74,6 +75,7 @@ echo voidOS > /etc/hostname
 nano /etc/hostname
 #voidOS
 
+echo 127.0.0.1 localhost.localdomain localhost / ::1 localhost.localdomain localhost | sed -E 's| / |\n|g' > /etc/hosts
 nano /etc/hosts
 #127.0.0.1 localhost.localdomain localhost
 #::1   localhost.localdomain localhost
