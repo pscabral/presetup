@@ -82,7 +82,7 @@ xbps-install -Sy nano bash-completion
 # Verificar o arquivo /ETC/FSTAB.
 cat /etc/fstab
 
-sleep 10
+sleep 10s
 
 #hostname, linguagem ...
 
