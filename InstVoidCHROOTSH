@@ -23,12 +23,18 @@ mount /dev/sda3 /mnt/home
 cd /mnt
 
 #Download do tarball
-wget https://a-hel-fi.m.voidlinux.org/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
+#wget https://a-hel-fi.m.voidlinux.org/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
 #wget http://ftp4.se.freebsd.org/pub/voidlinux/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
 #wget http://dk.archive.ubuntu.com/voidlinux/live/20190526/void-x86_64-musl-ROOTFS-20190526.tar.xz
 #wget http://achieversz.com.mirror.yandex.ru/mirrors/voidlinux/live/20190526/void-x86_64-ROOTFS-20190526.tar.xz
-tar xpf void-x86_64-ROOTFS-20190526.tar.xz --xattrs-include='*.*' --numeric-owner
-cp /etc/resolv.conf etc/resolv.conf
+#tar xpf void-x86_64-ROOTFS-20190526.tar.xz --xattrs-include='*.*' --numeric-owner
+#cp /etc/resolv.conf etc/resolv.conf
+
+# baixar a base-system
+echo "Y" | xbps-install -S -R https://mirrors.dotsrc.org/voidlinux/current/ -r /mnt/ base-system
+
+#Configurar o arquivo /etc/resolv.conf#
+echo nameserver 8.8.8.8 / nameserver 8.8.4.4 | sed -E 's| / |\n|g' > /etc/resolv.conf
 
 # repositorios
 mkdir -p /mnt/etc/xbps.d ; echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/ \nrepository=https://alpha.de.repo.voidlinux.org/current' | tee /mnt/etc/xbps.d/00-repository-main.conf
@@ -61,14 +67,22 @@ genfstab -p /mnt >> /mnt/etc/fstab
 # entrar em chroot
 arch-chroot /mnt /bin/bash
 
-#Atualização dosecho nameserver 8.8.8.8 /nameserver 8.8.4.4 | sed -E 's| / |\n|g' > /etc/resolv.conf pacotes.
+#Atualização do arquivo /etc/resolv.conf#
+
+echo nameserver 8.8.8.8 / nameserver 8.8.4.4 | sed -E 's| / |\n|g' > /etc/resolv.conf
+
+# Atualização repositorios
+mkdir -p /mnt/etc/xbps.d ; echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/ \nrepository=https://alpha.de.repo.voidlinux.org/current' | tee /mnt/etc/xbps.d/00-repository-main.conf
+echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/nonfree \nrepository=https://alpha.de.repo.voidlinux.org/current/nonfree' | tee /mnt/etc/xbps.d/00-repository-main.conf/10-repository-nonfree.conf
 
 xbps-install -Su
 xbps-install -Suv
-xbps-install -Sy nano
+xbps-install -Sy nano bash-completion
 
 # Verificar o arquivo /ETC/FSTAB.
 cat /etc/fstab
+
+sleep 10
 
 #hostname, linguagem ...
 
@@ -99,7 +113,7 @@ grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Xorg mínimo.
-xbps-install -Sy xf86-video-ati xorg-input-drivers xorg-minimal xorg-fonts bash-completion
+xbps-install -Sy xf86-video-ati xorg-input-drivers xorg-minimal xorg-fonts 
 
 # Usuários e senhas.
 passwd root
