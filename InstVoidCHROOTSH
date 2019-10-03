@@ -147,6 +147,3 @@ ln -sv /etc/sv/cgmanager /var/service/
 ln -sv /etc/sv/lxdm /var/service/
 #sv status /var/service/*
 #rm /var/service/*
-
-
-
