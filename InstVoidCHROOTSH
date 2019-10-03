@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Primeira parte
+
 #Instalação do Void Linux (CHROOT)
 
 #Instalar o xbps-install
@@ -12,7 +14,7 @@ sudo su
 #Particionamento
 mkfs.ext4 /dev/sda1
 mkfs.ext4 /dev/sda3
-mksawp /dev/sda2
+mkswap /dev/sda2
 
 #Montagem
 swapon /dev/sda2
@@ -67,6 +69,7 @@ genfstab -p /mnt >> /mnt/etc/fstab
 # entrar em chroot
 arch-chroot /mnt /bin/bash
 
+#Segunda parte
 #Atualização do arquivo /etc/resolv.conf#
 
 echo nameserver 8.8.8.8 / nameserver 8.8.4.4 | sed -E 's| / |\n|g' > /etc/resolv.conf
@@ -77,12 +80,13 @@ echo -e 'repository=https://mirrors.dotsrc.org/voidlinux/current/nonfree \nrepos
 
 xbps-install -Su
 xbps-install -Suv
-xbps-install -Sy nano bash-completion
+xbps-install -Sy nano bash-completion 
+glibc-locales
 
 # Verificar o arquivo /ETC/FSTAB.
 cat /etc/fstab
 
-sleep 10s
+sleep 3s
 
 #hostname, linguagem ...
 
@@ -127,11 +131,11 @@ xbps-install -Sy ca-certificates void-repo-nonfree ; xbps-install -Suy
 xbps-install -Sy xfce4-panel xfce4-session xfce4-settings xfconf xfdesktop xfwm4 xfwm4-themes xfce4-terminal exo xfce4-notifyd xfce4-screensaver xdg-user-dirs-gtk upower xfce4-clipman-plugin xfce4-appfinder xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin xfce4-power-manager tumbler ristretto gtk-engine-murrine gdk-pixbuf pulseaudio pavucontrol plank qt5-styleplugins qt5ct
 
 # pacotes basicos
-xbps-install -Sy sudo udiskie ntfs-3g alsa-utils xkill wget git dhcpcd dbus cgmanager rsync xdg-user-dirs xdg-utils glibc-locales curl nano dejavu-fonts-ttf polkit NetworkManager network-manager-applet wmctrl xz ConsoleKit2 make cronie setxkbmap gvfs gvfs-smb gvfs-cdda leafpad unrar zip p7zip unzip bzip ffmpeg gst-plugins-bad1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-base1 vlc lxdm firefox firefox-i18n-pt-BR chromium
+xbps-install -Sy sudo udiskie ntfs-3g alsa-utils xkill wget git dhcpcd dbus cgmanager rsync xdg-user-dirs xdg-utils glibc-locales curl nano dejavu-fonts-ttf polkit NetworkManager network-manager-applet wmctrl xz ConsoleKit2 make cronie setxkbmap gvfs gvfs-smb gvfs-cdda leafpad unrar zip p7zip unzip ffmpeg gst-plugins-bad1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-base1 vlc lxdm firefox firefox-i18n-pt-BR chromium
 
 # Adicionar usuário sudoers
 #echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
-nano /etc/sudoers
+#nano /etc/sudoers
 
 #Serviços.
 ln -sv /etc/sv/dbus /var/service/
@@ -143,8 +147,6 @@ ln -sv /etc/sv/cgmanager /var/service/
 ln -sv /etc/sv/lxdm /var/service/
 #sv status /var/service/*
 #rm /var/service/*
-
-
 
 
 
