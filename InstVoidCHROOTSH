@@ -106,9 +106,9 @@ xbps-reconfigure -f glibc-locales
 
 # Kernel, base-devel e grub.
 # xbps-install -S linux linux-headers base-devel
-xbps-install -S linux5.2 linux5.2-headers base-devel grub
+xbps-install -Sy linux5.2 linux5.2-headers base-devel grub
 
-xbps-install -S grub
+xbps-install -Sy grub
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -130,7 +130,7 @@ xbps-install -Sy xfce4-panel xfce4-session xfce4-settings xfconf xfdesktop xfwm4
 xbps-install -Sy sudo udiskie ntfs-3g alsa-utils xkill wget git dhcpcd dbus cgmanager rsync xdg-user-dirs xdg-utils glibc-locales curl nano dejavu-fonts-ttf polkit NetworkManager network-manager-applet wmctrl xz ConsoleKit2 make cronie setxkbmap gvfs gvfs-smb gvfs-cdda leafpad unrar zip p7zip unzip bzip ffmpeg gst-plugins-bad1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-base1 vlc lxdm firefox firefox-i18n-pt-BR chromium
 
 # Adicionar usuário sudoers
-echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+#echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 nano /etc/sudoers
 
 #Serviços.
@@ -141,7 +141,7 @@ ln -s /etc/sv/NetworkManager /var/service/
 ln -sv /etc/sv/consolekit /var/service/
 ln -sv /etc/sv/cgmanager /var/service/
 ln -sv /etc/sv/lxdm /var/service/
-sv status /var/service/*
+#sv status /var/service/*
 #rm /var/service/*
 
 
